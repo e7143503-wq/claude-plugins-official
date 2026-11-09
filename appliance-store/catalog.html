@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Каталог — Тумблер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="catalog">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="page wrap" data-route="catalog">
+    <nav class="crumbs" aria-label="Навигационная цепочка">
+      <a href="index.html">Главная</a><span aria-hidden="true">/</span><span aria-current="page">Каталог</span>
+    </nav>
+    <div class="page-head">
+      <h1 id="cat-title">Каталог</h1>
+      <p class="page-meta" id="cat-count" role="status"></p>
+    </div>
+
+    <div class="catalog">
+      <!-- Фильтры -->
+      <aside class="filters" id="cat-filters" aria-label="Фильтры">
+        <div class="filters-head">
+          <h2>Фильтры</h2>
+          <button type="button" class="link-btn" id="cat-reset">Сбросить</button>
+        </div>
+        <fieldset class="fgroup">
+          <legend>Категория</legend>
+          <div class="checklist" id="cat-f-cats"></div>
+        </fieldset>
+        <fieldset class="fgroup">
+          <legend>Цена, ₽</legend>
+          <div class="range">
+            <label class="visually-hidden" for="cat-min">Цена от</label>
+            <input class="input" id="cat-min" type="number" inputmode="numeric" min="0" step="500">
+            <label class="visually-hidden" for="cat-max">Цена до</label>
+            <input class="input" id="cat-max" type="number" inputmode="numeric" min="0" step="500">
+          </div>
+        </fieldset>
+        <fieldset class="fgroup">
+          <legend>Бренд</legend>
+          <div class="checklist" id="cat-f-brands"></div>
+        </fieldset>
+        <fieldset class="fgroup">
+          <legend>Класс энергопотребления</legend>
+          <div class="energy-pick" id="cat-f-energy"></div>
+          <p class="hint">Шкала ЕС: A — самый экономичный класс, G — наименее экономичный.</p>
+        </fieldset>
+        <fieldset class="fgroup">
+          <legend>Дополнительно</legend>
+          <div class="checklist">
+            <label class="check" for="cat-stock"><input id="cat-stock" type="checkbox"><span>Только в наличии</span></label>
+            <label class="check" for="cat-sale"><input id="cat-sale" type="checkbox"><span>Со скидкой</span></label>
+          </div>
+        </fieldset>
+      </aside>
+
+      <!-- Список товаров с сортировкой -->
+      <section class="catalog-main" aria-label="Товары">
+        <div class="toolbar">
+          <button type="button" class="btn btn-ghost filters-toggle" id="cat-filters-toggle" aria-expanded="false" aria-controls="cat-filters">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Фильтры <span class="badge" id="cat-active-count" hidden></span>
+          </button>
+          <div class="sort" role="group" aria-label="Сортировка">
+            <span class="sort-label">Сортировка:</span>
+            <button type="button" class="chip" data-sort="pop" aria-pressed="true">Популярные</button>
+            <button type="button" class="chip" data-sort="cheap" aria-pressed="false">Сначала дешёвые</button>
+            <button type="button" class="chip" data-sort="expensive" aria-pressed="false">Сначала дорогие</button>
+            <button type="button" class="chip" data-sort="rating" aria-pressed="false">По рейтингу</button>
+            <button type="button" class="chip" data-sort="discount" aria-pressed="false">По скидке</button>
+          </div>
+        </div>
+        <div class="active-filters" id="cat-active"></div>
+        <div class="grid" id="cat-grid"></div>
+        <div class="empty" id="cat-empty" hidden>
+          <div class="empty-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+          <h2>Ничего не нашлось</h2>
+          <p>Под выбранные условия нет товаров. Уберите часть фильтров или измените поисковый запрос.</p>
+          <button type="button" class="btn btn-primary" id="cat-empty-reset">Сбросить фильтры</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

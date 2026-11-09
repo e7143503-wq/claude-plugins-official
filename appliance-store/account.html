@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Личный кабинет — Тумблер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="account">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="page wrap" data-route="account">
+    <nav class="crumbs" aria-label="Навигационная цепочка">
+      <a href="index.html">Главная</a><span aria-hidden="true">/</span><span aria-current="page">Личный кабинет</span>
+    </nav>
+    <div class="page-head">
+      <h1>Личный кабинет</h1>
+    </div>
+
+    <div class="account">
+      <!-- Фото и краткая информация -->
+      <aside class="panel profile-card" aria-label="Профиль">
+        <div class="avatar" id="acc-avatar"></div>
+        <div class="photo-actions">
+          <button type="button" class="btn btn-ghost btn-sm" id="acc-photo-btn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Загрузить фото</button>
+          <button type="button" class="link-btn" id="acc-photo-remove" hidden>Удалить фото</button>
+          <input id="acc-photo" type="file" accept="image/*" class="visually-hidden" tabindex="-1" aria-label="Файл с фото профиля">
+        </div>
+        <p class="profile-name" id="acc-name-view"></p>
+        <p class="profile-since" id="acc-since"></p>
+        <dl class="profile-stats">
+          <div><dt>Заказов</dt><dd id="acc-stat-orders">0</dd></div>
+          <div><dt>Сумма покупок</dt><dd id="acc-stat-sum">0 ₽</dd></div>
+        </dl>
+        <button type="button" class="btn btn-ghost btn-block" id="acc-logout"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Выйти</button>
+      </aside>
+
+      <div class="account-main">
+        <!-- ФИО, телефон, почта -->
+        <section class="panel" aria-labelledby="acc-data-title">
+          <h2 id="acc-data-title">Личные данные</h2>
+          <form class="form-grid" id="acc-form" novalidate>
+            <div class="field span-2">
+              <label for="acc-name">ФИО</label>
+              <input class="input" id="acc-name" type="text" autocomplete="name" aria-describedby="acc-name-err">
+              <p class="field-error" id="acc-name-err"></p>
+            </div>
+            <div class="field">
+              <label for="acc-phone">Телефон</label>
+              <input class="input" id="acc-phone" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="acc-phone-err">
+              <p class="field-error" id="acc-phone-err"></p>
+            </div>
+            <div class="field">
+              <label for="acc-email">Почта</label>
+              <input class="input" id="acc-email" type="email" autocomplete="email" aria-describedby="acc-email-err">
+              <p class="field-error" id="acc-email-err"></p>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Сохранить изменения</button>
+              <p class="form-status" id="acc-status" role="status"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- Смена пароля -->
+        <section class="panel" aria-labelledby="acc-pass-title">
+          <h2 id="acc-pass-title">Смена пароля</h2>
+          <form class="form-grid" id="acc-pass-form" novalidate>
+            <div class="field span-2">
+              <label for="acc-pass-old">Текущий пароль</label>
+              <input class="input" id="acc-pass-old" type="password" autocomplete="current-password" aria-describedby="acc-pass-old-err">
+              <p class="field-error" id="acc-pass-old-err"></p>
+            </div>
+            <div class="field">
+              <label for="acc-pass-new">Новый пароль</label>
+              <input class="input" id="acc-pass-new" type="password" autocomplete="new-password" aria-describedby="acc-pass-new-err">
+              <p class="field-error" id="acc-pass-new-err"></p>
+            </div>
+            <div class="field">
+              <label for="acc-pass-new2">Повторите новый пароль</label>
+              <input class="input" id="acc-pass-new2" type="password" autocomplete="new-password" aria-describedby="acc-pass-new2-err">
+              <p class="field-error" id="acc-pass-new2-err"></p>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Изменить пароль</button>
+              <p class="form-status" id="acc-pass-status" role="status"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- Покупки / заказы -->
+        <section class="panel" aria-labelledby="acc-orders-title">
+          <h2 id="acc-orders-title">Мои заказы</h2>
+          <div class="orders" id="acc-orders"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

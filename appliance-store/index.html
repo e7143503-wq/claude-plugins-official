@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Тумблер — магазин бытовой техники</title>
+  <meta name="description" content="Холодильники, стиральные машины, пылесосы и мелкая техника для кухни с доставкой и подключением.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="page wrap" data-route="home">
+    <!-- Баннер с прокруткой -->
+    <section class="hero" data-carousel aria-roledescription="карусель" aria-label="Акции магазина">
+      <div class="hero-viewport">
+        <div class="slides">
+          <article class="slide slide-1" aria-roledescription="слайд" aria-label="1 из 3">
+            <div>
+              <p class="eyebrow">Неделя холода · до 16 ноября</p>
+              <h1 class="slide-title">Холодильники Kelvio со&nbsp;скидкой до&nbsp;15%</h1>
+              <p class="slide-lead">No Frost, тихие компрессоры от 35 дБ и класс энергопотребления от C. Привезём и поднимем на этаж бесплатно.</p>
+              <a class="btn btn-primary btn-lg" href="catalog.html?cat=fridge">Выбрать холодильник</a>
+            </div>
+            <div class="slide-art" data-art="fridge" data-color="silver"></div>
+          </article>
+          <article class="slide slide-2" aria-roledescription="слайд" aria-label="2 из 3">
+            <div>
+              <p class="eyebrow">Установка в подарок · до 30 ноября</p>
+              <h2 class="slide-title">Подключим стиральную машину бесплатно</h2>
+              <p class="slide-lead">Мастер приедет вместе с доставкой, выставит машину по уровню и проверит первый цикл стирки.</p>
+              <a class="btn btn-primary btn-lg" href="catalog.html?cat=washer">Смотреть стиральные машины</a>
+            </div>
+            <div class="slide-art" data-art="washer" data-color="white"></div>
+          </article>
+          <article class="slide slide-3" aria-roledescription="слайд" aria-label="3 из 3">
+            <div>
+              <p class="eyebrow">Новинка · Voltis Robo R9 Pro</p>
+              <h2 class="slide-title">Робот, который сам моет салфетки</h2>
+              <p class="slide-price"><span class="price">59&nbsp;990&nbsp;₽</span><s class="old">69&nbsp;990&nbsp;₽</s></p>
+              <a class="btn btn-primary btn-lg" href="catalog.html?cat=cleaning">Все пылесосы</a>
+            </div>
+            <div class="slide-art" data-art="robot" data-color="black"></div>
+          </article>
+        </div>
+      </div>
+      <div class="hero-controls">
+        <button type="button" class="hero-arrow" data-dir="prev" aria-label="Предыдущий слайд"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+        <div class="dots"></div>
+        <button type="button" class="hero-arrow" data-dir="next" aria-label="Следующий слайд"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+        <span class="hero-counter" aria-hidden="true">01 / 03</span>
+      </div>
+    </section>
+
+    <!-- Простой каталог товаров -->
+    <section class="section" aria-labelledby="cats-title">
+      <div class="section-head">
+        <h2 id="cats-title">Категории</h2>
+        <a class="more-link" href="catalog.html">Весь каталог →</a>
+      </div>
+      <div class="cats" id="home-cats"></div>
+    </section>
+
+    <section class="section" aria-labelledby="popular-title">
+      <div class="section-head">
+        <h2 id="popular-title">Популярные товары</h2>
+        <a class="more-link" href="catalog.html?sale=1">Все товары со скидкой →</a>
+      </div>
+      <div class="grid grid-home" id="home-popular"></div>
+    </section>
+
+    <!-- Форма обратной связи: подписка на рекламную рассылку -->
+    <section class="section subscribe" aria-labelledby="sub-title">
+      <div>
+        <p class="eyebrow">Рассылка по пятницам</p>
+        <h2 id="sub-title">Узнавайте о скидках первыми</h2>
+        <p>Раз в неделю присылаем подборку акций и промокодов на технику. Отписаться можно по ссылке в любом письме.</p>
+      </div>
+      <form class="subscribe-form" id="sub-form" novalidate>
+        <div class="field">
+          <label for="sub-name">Имя</label>
+          <input class="input" id="sub-name" name="name" type="text" autocomplete="given-name" placeholder="Мария" aria-describedby="sub-name-err">
+          <p class="field-error" id="sub-name-err"></p>
+        </div>
+        <div class="field">
+          <label for="sub-email">Электронная почта</label>
+          <input class="input" id="sub-email" name="email" type="email" autocomplete="email" placeholder="maria@mail.ru" aria-describedby="sub-email-err">
+          <p class="field-error" id="sub-email-err"></p>
+        </div>
+        <div class="field field-check">
+          <label class="check" for="sub-agree"><input id="sub-agree" type="checkbox" aria-describedby="sub-agree-err"><span>Согласен получать рекламные письма об акциях магазина</span></label>
+          <p class="field-error" id="sub-agree-err"></p>
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit">Подписаться</button>
+        <p class="form-status" id="sub-status" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
