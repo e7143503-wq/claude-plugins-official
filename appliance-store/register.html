@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Регистрация — Тумблер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="register">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="page wrap" data-route="register">
+    <div class="auth">
+      <section class="auth-card" aria-labelledby="reg-title">
+        <h1 id="reg-title">Регистрация</h1>
+        <p class="auth-lead">Аккаунт хранит историю заказов и ускоряет оформление покупок.</p>
+
+        <!-- Форма регистрации -->
+        <form class="stack" id="reg-form" novalidate>
+          <div class="field">
+            <label for="reg-name">Фамилия и имя</label>
+            <input class="input" id="reg-name" type="text" autocomplete="name" placeholder="Иванова Мария" aria-describedby="reg-name-err">
+            <p class="field-error" id="reg-name-err"></p>
+          </div>
+          <div class="field">
+            <label for="reg-phone">Телефон</label>
+            <input class="input" id="reg-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (999) 123-45-67" aria-describedby="reg-phone-err">
+            <p class="field-error" id="reg-phone-err"></p>
+          </div>
+          <div class="field">
+            <label for="reg-email">Электронная почта</label>
+            <input class="input" id="reg-email" type="email" autocomplete="email" placeholder="maria@mail.ru" aria-describedby="reg-email-err">
+            <p class="field-error" id="reg-email-err"></p>
+          </div>
+          <div class="field">
+            <label for="reg-pass">Пароль</label>
+            <div class="pass-wrap">
+              <input class="input" id="reg-pass" type="password" autocomplete="new-password" aria-describedby="reg-pass-hint reg-pass-err">
+              <button type="button" class="pass-toggle" data-toggle-pass="reg-pass" aria-pressed="false" aria-label="Показать пароль"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+            <p class="hint" id="reg-pass-hint">Не короче 8 символов, хотя бы одна буква и одна цифра.</p>
+            <div class="meter" id="reg-meter" data-level="0" hidden><span class="meter-bars"><span></span><span></span><span></span><span></span></span><span id="reg-meter-label"></span></div>
+            <p class="field-error" id="reg-pass-err"></p>
+          </div>
+          <div class="field">
+            <label for="reg-pass2">Повторите пароль</label>
+            <input class="input" id="reg-pass2" type="password" autocomplete="new-password" aria-describedby="reg-pass2-err">
+            <p class="field-error" id="reg-pass2-err"></p>
+          </div>
+          <div class="field">
+            <label class="check" for="reg-agree"><input id="reg-agree" type="checkbox" aria-describedby="reg-agree-err"><span>Согласен на обработку персональных данных</span></label>
+            <p class="field-error" id="reg-agree-err"></p>
+          </div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
+        </form>
+
+        <!-- Переход на страницу авторизации -->
+        <p class="auth-switch">Уже есть аккаунт? <a href="login.html" id="reg-to-login">Войти</a></p>
+      </section>
+
+      <aside class="auth-art" aria-hidden="true">
+        <div class="auth-art-grid">
+          <span data-art-static="robot" data-color="white"></span>
+          <span data-art-static="oven" data-color="black"></span>
+          <span data-art-static="multicooker" data-color="silver"></span>
+          <span data-art-static="microwave" data-color="white"></span>
+        </div>
+        <div>
+          <h2>Что даёт аккаунт</h2>
+          <ul>
+            <li><svg class="i" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>История и статусы заказов</li>
+            <li><svg class="i" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Повтор заказа в один клик</li>
+            <li><svg class="i" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Данные для доставки уже заполнены</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

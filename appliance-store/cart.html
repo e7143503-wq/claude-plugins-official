@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Корзина — Тумблер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cart">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="page wrap" data-route="cart">
+    <nav class="crumbs" aria-label="Навигационная цепочка">
+      <a href="index.html">Главная</a><span aria-hidden="true">/</span><span aria-current="page">Корзина</span>
+    </nav>
+    <div class="page-head">
+      <h1>Корзина</h1>
+      <p class="page-meta" id="cart-meta"></p>
+    </div>
+
+    <div class="notice notice-ok" id="cart-done" role="status" hidden></div>
+
+    <div class="cart" id="cart-layout">
+      <!-- Список товаров: фото, название, цена, количество -->
+      <section class="cart-list" id="cart-list" aria-label="Товары в корзине"></section>
+
+      <!-- Сумма корзины -->
+      <aside class="panel summary" aria-labelledby="cart-sum-title">
+        <h2 id="cart-sum-title">Сумма корзины</h2>
+        <dl class="sum-rows" id="cart-rows"></dl>
+        <div class="sum-total"><span>Итого</span><b id="cart-total"></b></div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="cart-checkout">Оформить заказ</button>
+        <p class="hint" id="cart-hint"></p>
+        <button type="button" class="link-btn" id="cart-clear"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Очистить корзину</button>
+      </aside>
+    </div>
+
+    <div class="empty" id="cart-empty" hidden>
+      <div class="empty-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.3 11h11l2-8H6.3"/><circle cx="9.5" cy="19.5" r="1.5"/><circle cx="17.5" cy="19.5" r="1.5"/></svg></div>
+      <h2>В корзине пока пусто</h2>
+      <p>Добавляйте товары кнопкой «В корзину» в каталоге или из избранного.</p>
+      <a class="btn btn-primary" href="catalog.html">Перейти в каталог</a>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

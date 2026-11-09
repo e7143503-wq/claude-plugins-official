@@ -1,0 +1,103 @@
+/* Каталог магазина «Тумблер».
+   Бренды, модели и цены вымышлены — это учебные данные. */
+
+window.CATEGORIES = [
+  { id: 'fridge',     name: 'Холодильники',            art: 'fridge' },
+  { id: 'washer',     name: 'Стиральные машины',       art: 'washer' },
+  { id: 'dishwasher', name: 'Посудомоечные машины',    art: 'dishwasher' },
+  { id: 'cooking',    name: 'Духовки и варочные панели', art: 'oven' },
+  { id: 'microwave',  name: 'Микроволновые печи',      art: 'microwave' },
+  { id: 'cleaning',   name: 'Пылесосы и утюги',        art: 'vacuum' },
+  { id: 'climate',    name: 'Кондиционеры',            art: 'ac' },
+  { id: 'kitchen',    name: 'Мелкая кухонная техника', art: 'kettle' }
+];
+
+/* energy — класс энергопотребления по шкале ЕС (A — самый экономичный, G — наименее).
+   pop — условная популярность для сортировки. stock: false — нет в наличии. */
+window.PRODUCTS = [
+  { id: 'kelvio-kr350', name: 'Kelvio KR-350 NoFrost', brand: 'Kelvio', cat: 'fridge', kind: 'Холодильник', art: 'fridge', color: 'white',
+    price: 54990, old: 64990, rating: 4.7, reviews: 128, pop: 96, energy: 'D',
+    specs: ['350 л', 'No Frost', '186 см', '38 дБ'] },
+  { id: 'kelvio-kr420', name: 'Kelvio KR-420 Inox', brand: 'Kelvio', cat: 'fridge', kind: 'Холодильник', art: 'fridge', color: 'silver',
+    price: 79990, old: 89990, rating: 4.8, reviews: 64, pop: 88, energy: 'C', isNew: true,
+    specs: ['420 л', 'No Frost', '201 см', '35 дБ'] },
+  { id: 'kelvio-sbs610', name: 'Kelvio Duo SBS 610', brand: 'Kelvio', cat: 'fridge', kind: 'Холодильник Side-by-Side', art: 'fridge2', color: 'black',
+    price: 149990, rating: 4.6, reviews: 31, pop: 60, energy: 'E', stock: false,
+    specs: ['610 л', 'Side-by-Side', 'Ледогенератор', '178 см'] },
+  { id: 'brisa-retro230', name: 'Brisa Retro 230', brand: 'Brisa', cat: 'fridge', kind: 'Холодильник', art: 'fridge', color: 'red',
+    price: 62490, rating: 4.5, reviews: 47, pop: 70, energy: 'E',
+    specs: ['230 л', 'Ретро-дизайн', '152 см', '40 дБ'] },
+
+  { id: 'aquaro-wm7140', name: 'Aquaro WM-7140', brand: 'Aquaro', cat: 'washer', kind: 'Стиральная машина', art: 'washer', color: 'white',
+    price: 42990, old: 49990, rating: 4.8, reviews: 312, pop: 99, energy: 'A',
+    specs: ['7 кг', '1400 об/мин', 'Инвертор', 'Глубина 45 см'] },
+  { id: 'aquaro-wm9160', name: 'Aquaro WM-9160 Steam', brand: 'Aquaro', cat: 'washer', kind: 'Стиральная машина', art: 'washer', color: 'silver',
+    price: 68990, rating: 4.9, reviews: 94, pop: 84, energy: 'A', isNew: true,
+    specs: ['9 кг', '1600 об/мин', 'Обработка паром', 'Глубина 60 см'] },
+  { id: 'aquaro-slim6', name: 'Aquaro Slim 6', brand: 'Aquaro', cat: 'washer', kind: 'Стиральная машина', art: 'washer', color: 'white',
+    price: 31490, rating: 4.4, reviews: 203, pop: 90, energy: 'B',
+    specs: ['6 кг', '1200 об/мин', 'Глубина 40 см', '15 программ'] },
+
+  { id: 'aquaro-dw45', name: 'Aquaro DW-45', brand: 'Aquaro', cat: 'dishwasher', kind: 'Посудомоечная машина', art: 'dishwasher', color: 'white',
+    price: 36990, rating: 4.6, reviews: 141, pop: 82, energy: 'D',
+    specs: ['10 комплектов', 'Ширина 45 см', 'Расход 9 л', '44 дБ'] },
+  { id: 'aquaro-dw60', name: 'Aquaro DW-60 Silence', brand: 'Aquaro', cat: 'dishwasher', kind: 'Посудомоечная машина', art: 'dishwasher', color: 'silver',
+    price: 57990, old: 62990, rating: 4.8, reviews: 58, pop: 74, energy: 'C',
+    specs: ['14 комплектов', 'Ширина 60 см', 'Расход 9,5 л', '41 дБ'] },
+
+  { id: 'ferrona-ov71', name: 'Ferrona OV-71 Pyro', brand: 'Ferrona', cat: 'cooking', kind: 'Духовой шкаф', art: 'oven', color: 'black',
+    price: 48990, rating: 4.7, reviews: 76, pop: 72, energy: 'A',
+    specs: ['71 л', 'Пиролиз', 'Конвекция', 'До 300 °C'] },
+  { id: 'ferrona-ov65', name: 'Ferrona OV-65 Classic', brand: 'Ferrona', cat: 'cooking', kind: 'Духовой шкаф', art: 'oven', color: 'beige',
+    price: 32990, rating: 4.5, reviews: 39, pop: 58, energy: 'A',
+    specs: ['65 л', 'Гриль', '8 режимов', 'До 250 °C'] },
+  { id: 'ferrona-hb604', name: 'Ferrona HB-604 Induction', brand: 'Ferrona', cat: 'cooking', kind: 'Варочная панель', art: 'hob', color: 'black',
+    price: 39990, old: 44990, rating: 4.8, reviews: 112, pop: 80,
+    specs: ['Индукция', '4 конфорки', '7,4 кВт', 'Ширина 60 см'] },
+
+  { id: 'ferrona-mw25', name: 'Ferrona MW-25 Grill', brand: 'Ferrona', cat: 'microwave', kind: 'Микроволновая печь', art: 'microwave', color: 'silver',
+    price: 12490, old: 14990, rating: 4.6, reviews: 267, pop: 91,
+    specs: ['25 л', '900 Вт', 'Гриль', '10 программ'] },
+  { id: 'ferrona-mw20', name: 'Ferrona MW-20 Solo', brand: 'Ferrona', cat: 'microwave', kind: 'Микроволновая печь', art: 'microwave', color: 'white',
+    price: 7990, rating: 4.3, reviews: 419, pop: 93,
+    specs: ['20 л', '700 Вт', 'Механика', '5 уровней мощности'] },
+
+  { id: 'voltis-v8', name: 'Voltis Cyclone V8', brand: 'Voltis', cat: 'cleaning', kind: 'Пылесос', art: 'vacuum', color: 'red',
+    price: 18990, rating: 4.5, reviews: 188, pop: 85,
+    specs: ['2000 Вт', 'Контейнер 2 л', 'HEPA 13', 'Шнур 8 м'] },
+  { id: 'voltis-v6', name: 'Voltis Cyclone V6', brand: 'Voltis', cat: 'cleaning', kind: 'Пылесос', art: 'vacuum', color: 'black',
+    price: 12990, rating: 4.3, reviews: 96, pop: 67,
+    specs: ['1600 Вт', 'Контейнер 1,5 л', 'HEPA 12', 'Шнур 6 м'] },
+  { id: 'voltis-r5', name: 'Voltis Robo R5', brand: 'Voltis', cat: 'cleaning', kind: 'Робот-пылесос', art: 'robot', color: 'white',
+    price: 29990, old: 34990, rating: 4.6, reviews: 153, pop: 89,
+    specs: ['Лидар', '120 мин', 'Влажная уборка', 'Управление из приложения'] },
+  { id: 'voltis-r9', name: 'Voltis Robo R9 Pro', brand: 'Voltis', cat: 'cleaning', kind: 'Робот-пылесос', art: 'robot', color: 'black',
+    price: 59990, old: 69990, rating: 4.9, reviews: 42, pop: 78, isNew: true,
+    specs: ['Станция самоочистки', '180 мин', 'Лидар', 'Мойка салфеток'] },
+  { id: 'voltis-steam2600', name: 'Voltis Steam 2600', brand: 'Voltis', cat: 'cleaning', kind: 'Утюг', art: 'iron', color: 'white',
+    price: 5490, rating: 4.4, reviews: 231, pop: 76,
+    specs: ['2600 Вт', 'Паровой удар 220 г', 'Керамика', 'Автоотключение'] },
+
+  { id: 'kelvio-split09', name: 'Kelvio Split 09', brand: 'Kelvio', cat: 'climate', kind: 'Сплит-система', art: 'ac', color: 'white',
+    price: 34990, rating: 4.5, reviews: 87, pop: 69, energy: 'A',
+    specs: ['До 25 м²', 'Инвертор', '24 дБ', 'Wi-Fi'] },
+  { id: 'kelvio-split12', name: 'Kelvio Split 12 Inverter', brand: 'Kelvio', cat: 'climate', kind: 'Сплит-система', art: 'ac', color: 'white',
+    price: 44990, old: 49990, rating: 4.7, reviews: 53, pop: 64, energy: 'A',
+    specs: ['До 35 м²', 'Инвертор', '26 дБ', 'Обогрев до −15 °C'] },
+
+  { id: 'voltis-k17', name: 'Voltis Kettle K17', brand: 'Voltis', cat: 'kitchen', kind: 'Электрочайник', art: 'kettle', color: 'silver',
+    price: 3290, rating: 4.6, reviews: 540, pop: 95,
+    specs: ['1,7 л', '2200 Вт', 'Нержавеющая сталь', 'Автоотключение'] },
+  { id: 'brisa-kettle-retro', name: 'Brisa Kettle Retro', brand: 'Brisa', cat: 'kitchen', kind: 'Электрочайник', art: 'kettle', color: 'beige',
+    price: 4490, rating: 4.7, reviews: 164, pop: 73,
+    specs: ['1,5 л', '2000 Вт', 'Ретро-дизайн', 'Поддержание температуры'] },
+  { id: 'brisa-barista', name: 'Brisa Barista One', brand: 'Brisa', cat: 'kitchen', kind: 'Кофемашина', art: 'coffee', color: 'black',
+    price: 34990, old: 39990, rating: 4.8, reviews: 97, pop: 83, isNew: true,
+    specs: ['15 бар', 'Капучинатор', 'Кофемолка', 'Резервуар 1,8 л'] },
+  { id: 'brisa-blend1200', name: 'Brisa Blend 1200', brand: 'Brisa', cat: 'kitchen', kind: 'Блендер', art: 'blender', color: 'white',
+    price: 6990, rating: 4.4, reviews: 122, pop: 61,
+    specs: ['1200 Вт', 'Чаша 1,5 л', '6 ножей', 'Колка льда'] },
+  { id: 'brisa-cook5', name: 'Brisa Cook 5', brand: 'Brisa', cat: 'kitchen', kind: 'Мультиварка', art: 'multicooker', color: 'silver',
+    price: 7990, rating: 4.6, reviews: 208, pop: 79,
+    specs: ['5 л', '45 программ', 'Отложенный старт', 'Антипригарная чаша'] }
+];

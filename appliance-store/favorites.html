@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Избранное — Тумблер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="favorites">
+  <header class="site-header" id="site-header"></header>
+
+  <main class="page wrap" data-route="favorites">
+    <nav class="crumbs" aria-label="Навигационная цепочка">
+      <a href="index.html">Главная</a><span aria-hidden="true">/</span><span aria-current="page">Избранное</span>
+    </nav>
+    <div class="page-head">
+      <div>
+        <h1>Избранное</h1>
+        <p class="page-meta" id="fav-meta"></p>
+      </div>
+      <div class="head-actions" id="fav-actions">
+        <button type="button" class="btn btn-primary" id="fav-all">Добавить всё в корзину</button>
+        <button type="button" class="btn btn-ghost" id="fav-clear">Очистить</button>
+      </div>
+    </div>
+
+    <!-- Список избранных товаров -->
+    <div class="grid" id="fav-grid"></div>
+
+    <div class="empty" id="fav-empty" hidden>
+      <div class="empty-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.2-4.4-9.3-9.1A5 5 0 0 1 12 6.1a5 5 0 0 1 9.3 4.8C19.2 15.6 12 20 12 20Z"/></svg></div>
+      <h2>В избранном пока ничего нет</h2>
+      <p>Нажмите на сердечко на карточке товара, чтобы сохранить его и сравнить позже.</p>
+      <a class="btn btn-primary" href="catalog.html">Перейти в каталог</a>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
