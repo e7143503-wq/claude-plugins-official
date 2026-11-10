@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Бюро проектов — готовые проекты с исходниками</title>
+<meta name="description" content="Готовые сайты, боты, приложения и шаблоны с исходниками. Выберите проект, оставьте заявку и получите код, документацию и помощь с запуском.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Бюро проектов: готовые проекты с исходниками">
+<meta property="og:description" content="Сайты, боты, приложения и шаблоны, которые уже работают. Код, документация и помощь с запуском.">
+<meta name="theme-color" content="#eef2f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08153a" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:slnt,wght,CRSV,SHRP@-12..0,100..900,0..1,0..100&family=Golos+Text:wght@400..900&family=JetBrains+Mono:wght@400..800&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<script>
+  /* Тема, выбранная посетителем, применяется до первой отрисовки. */
+  (function () {
+    try {
+      var t = localStorage.getItem('shop:theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.4l2.2 10.5h10.3L20 7H7"/><circle cx="9.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8 8 0 0 1 9.8 4 8 8 0 1 0 20 14.2Z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M11 6H6v12h12v-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11"/><path d="M15 9V4H4v11h5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2.5L11 20l3-4.5 4.5 3.5L21 4Z"/><path d="m9 13.5 12-9.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h4l1.5 5L9 9.5a11 11 0 0 0 5.5 5.5L16 12.5l5 1.5v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></symbol>
+</svg>
+
+<a class="skip" href="#catalog">Перейти к каталогу</a>
+<div id="top"></div>
+
+<div class="demo-bar" id="demo-bar" hidden>
+  <p class="wrap"><strong>Демо-каталог.</strong> Проекты, цены и контакты показаны для примера.</p>
+</div>
+
+<header class="top">
+  <div class="wrap top__in">
+    <a class="brand" href="#top">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="3" y="3" width="26" height="26"/><path d="M14 20h15M14 20v9M14 24.5h15M22 20v4.5"/></svg>
+      <span class="brand__name" data-brand>Бюро проектов</span>
+    </a>
+    <nav class="nav" aria-label="Разделы сайта">
+      <a href="#catalog">Каталог</a>
+      <a href="#process">Как купить</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <div class="top__tools">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Переключить светлую и тёмную тему">
+        <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+      <button class="cart-btn" id="cart-open" type="button" aria-haspopup="dialog">
+        <svg class="i" aria-hidden="true"><use href="#i-cart"/></svg>
+        <span class="cart-btn__text">Корзина</span>
+        <span class="cart-btn__count" id="cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="sheet hero__sheet">
+      <div class="hero__text">
+        <h1 class="display hero__title" id="hero-title"><span>Готовые</span> <span>проекты</span> <strong>с исходниками</strong></h1>
+        <p class="lead">Сайты, боты, приложения и шаблоны, которые уже работают. Вы получаете код, документацию и помощь с запуском.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#catalog">Смотреть каталог <svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn" href="#process">Как проходит покупка</a>
+        </div>
+      </div>
+
+      <div class="hero__plan">
+        <svg class="plan" viewBox="0 0 560 500" role="img" aria-labelledby="plan-title">
+          <title id="plan-title">Состав проекта по слоям: интерфейс, код, данные, документация</title>
+          <g class="plan__axis">
+            <line x1="45" y1="82" x2="45" y2="434"/>
+            <line x1="345" y1="82" x2="345" y2="434"/>
+          </g>
+
+          <g transform="translate(195 408)"><g class="plate" style="--k:3">
+            <polygon class="plate__side" points="-150,0 0,75 0,87 -150,12"/>
+            <polygon class="plate__side" points="150,0 0,75 0,87 150,12"/>
+            <polygon class="plate__top" points="0,-75 150,0 0,75 -150,0"/>
+            <g class="plate__art" transform="matrix(1.5 .75 -1.5 .75 0 -75)">
+              <line class="bold" x1="12" y1="48" x2="44" y2="48"/>
+              <line x1="12" y1="58" x2="86" y2="58"/><line x1="12" y1="66" x2="76" y2="66"/><line x1="12" y1="74" x2="84" y2="74"/><line x1="12" y1="82" x2="56" y2="82"/>
+              <rect x="58" y="10" width="30" height="22"/><line class="thin" x1="58" y1="10" x2="88" y2="32"/><line class="thin" x1="88" y1="10" x2="58" y2="32"/>
+            </g>
+            <g class="callout"><circle cx="111" cy="1.5" r="3"/><polyline points="111,1.5 176,-30 346,-30"/><text x="182" y="-38">Документация</text></g>
+          </g></g>
+
+          <g transform="translate(195 304)"><g class="plate" style="--k:2">
+            <polygon class="plate__side" points="-150,0 0,75 0,87 -150,12"/>
+            <polygon class="plate__side" points="150,0 0,75 0,87 150,12"/>
+            <polygon class="plate__top" points="0,-75 150,0 0,75 -150,0"/>
+            <g class="plate__art" transform="matrix(1.5 .75 -1.5 .75 0 -75)">
+              <rect class="fill" x="10" y="44" width="80" height="12"/>
+              <rect x="10" y="44" width="80" height="48"/>
+              <line x1="10" y1="56" x2="90" y2="56"/><line class="thin" x1="10" y1="68" x2="90" y2="68"/><line class="thin" x1="10" y1="80" x2="90" y2="80"/>
+              <line class="thin" x1="34" y1="44" x2="34" y2="92"/><line class="thin" x1="62" y1="44" x2="62" y2="92"/>
+              <line x1="46" y1="16" x2="88" y2="16"/><line x1="46" y1="25" x2="74" y2="25"/>
+            </g>
+            <g class="callout"><circle cx="111" cy="1.5" r="3"/><polyline points="111,1.5 176,-30 346,-30"/><text x="182" y="-38">Данные</text></g>
+          </g></g>
+
+          <g transform="translate(195 200)"><g class="plate" style="--k:1">
+            <polygon class="plate__side" points="-150,0 0,75 0,87 -150,12"/>
+            <polygon class="plate__side" points="150,0 0,75 0,87 150,12"/>
+            <polygon class="plate__top" points="0,-75 150,0 0,75 -150,0"/>
+            <g class="plate__art" transform="matrix(1.5 .75 -1.5 .75 0 -75)">
+              <line class="thin" x1="10" y1="42" x2="10" y2="92"/>
+              <line x1="16" y1="48" x2="52" y2="48"/><line x1="24" y1="57" x2="74" y2="57"/><line x1="24" y1="66" x2="60" y2="66"/><line x1="32" y1="75" x2="86" y2="75"/><line x1="24" y1="84" x2="48" y2="84"/>
+              <line x1="46" y1="14" x2="88" y2="14"/><line x1="54" y1="23" x2="78" y2="23"/><line x1="46" y1="32" x2="66" y2="32"/>
+            </g>
+            <g class="callout"><circle cx="111" cy="1.5" r="3"/><polyline points="111,1.5 176,-30 346,-30"/><text x="182" y="-38">Код</text></g>
+          </g></g>
+
+          <g transform="translate(195 96)"><g class="plate" style="--k:0">
+            <polygon class="plate__side" points="-150,0 0,75 0,87 -150,12"/>
+            <polygon class="plate__side" points="150,0 0,75 0,87 150,12"/>
+            <polygon class="plate__top" points="0,-75 150,0 0,75 -150,0"/>
+            <g class="plate__art" transform="matrix(1.5 .75 -1.5 .75 0 -75)">
+              <rect x="10" y="10" width="80" height="80"/>
+              <line x1="10" y1="24" x2="90" y2="24"/>
+              <circle cx="17" cy="17" r="2"/><circle cx="24" cy="17" r="2"/><circle cx="31" cy="17" r="2"/>
+              <rect x="18" y="32" width="64" height="22"/><line class="thin" x1="18" y1="32" x2="82" y2="54"/><line class="thin" x1="82" y1="32" x2="18" y2="54"/>
+              <rect x="18" y="62" width="18" height="20"/><rect x="41" y="62" width="18" height="20"/><rect x="64" y="62" width="18" height="20"/>
+            </g>
+            <g class="callout"><circle cx="111" cy="1.5" r="3"/><polyline points="111,1.5 176,-30 346,-30"/><text x="182" y="-38">Интерфейс</text></g>
+          </g></g>
+        </svg>
+      </div>
+
+      <dl class="titleblock">
+        <div class="titleblock__name"><dt>Наименование</dt><dd>Каталог готовых проектов</dd></div>
+        <div><dt>Проектов</dt><dd data-stat="count">—</dd></div>
+        <div><dt>Категорий</dt><dd data-stat="cats">—</dd></div>
+        <div><dt>Цены от</dt><dd data-stat="from">—</dd></div>
+        <div><dt>Обновлён</dt><dd data-stat="updated">—</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section wrap" id="catalog" aria-labelledby="catalog-title">
+    <div class="section__head">
+      <h2 class="display" id="catalog-title">Каталог</h2>
+      <div class="dim">
+        <i class="dim__arrow dim__arrow--l" aria-hidden="true"></i><span class="dim__line" aria-hidden="true"></span>
+        <span class="dim__label" id="result-count" role="status">Загружаем проекты</span>
+        <span class="dim__line" aria-hidden="true"></span><i class="dim__arrow dim__arrow--r" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="search">
+        <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr-only" for="search">Поиск по проектам</label>
+        <input id="search" type="search" placeholder="Поиск: бот, лендинг, React" autocomplete="off" enterkeyhint="search" spellcheck="false">
+        <kbd class="search__key" aria-hidden="true">/</kbd>
+      </div>
+      <div class="sort">
+        <label class="label" for="sort">Сортировка</label>
+        <select id="sort">
+          <option value="default">По умолчанию</option>
+          <option value="new">Сначала новые</option>
+          <option value="cheap">Сначала дешёвые</option>
+          <option value="expensive">Сначала дорогие</option>
+        </select>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Категории"></div>
+    </div>
+
+    <ul class="grid" id="grid" role="list"></ul>
+
+    <div class="empty" id="empty" hidden>
+      <p class="empty__title">Ничего не нашлось</p>
+      <p id="empty-text">Попробуйте другой запрос или категорию.</p>
+      <button class="btn" type="button" data-reset>Сбросить фильтры</button>
+    </div>
+
+    <noscript>
+      <p class="noscript">Каталог показывается с помощью JavaScript. Включите его в настройках браузера и обновите страницу.</p>
+    </noscript>
+  </section>
+
+  <section class="section wrap" id="process" aria-labelledby="process-title">
+    <div class="section__head">
+      <h2 class="display" id="process-title">Как проходит <strong>покупка</strong></h2>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="step__n" aria-hidden="true">1</span>
+        <h3>Выбираете проект</h3>
+        <p>В карточке есть описание, состав и стек. Если у проекта есть демо, его можно открыть до покупки.</p>
+      </li>
+      <li class="step">
+        <span class="step__n" aria-hidden="true">2</span>
+        <h3>Оставляете заявку</h3>
+        <p>Добавьте проекты в корзину и отправьте заявку. Регистрация не нужна.</p>
+      </li>
+      <li class="step">
+        <span class="step__n" aria-hidden="true">3</span>
+        <h3>Согласуем детали</h3>
+        <p>Отвечаем на вопросы, подтверждаем состав и присылаем счёт или ссылку на оплату.</p>
+      </li>
+      <li class="step">
+        <span class="step__n" aria-hidden="true">4</span>
+        <h3>Получаете проект</h3>
+        <p>Передаём исходники, документацию и доступы. Помогаем запустить.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section wrap" id="faq" aria-labelledby="faq-title">
+    <div class="faq">
+      <div class="faq__head">
+        <h2 class="display" id="faq-title">Частые <strong>вопросы</strong></h2>
+        <p>Если ответа здесь нет, напишите нам. Контакты ниже.</p>
+      </div>
+      <div class="faq__list">
+        <details class="qa">
+          <summary>Что входит в покупку?</summary>
+          <p>Состав указан в карточке каждого проекта в блоке «Что входит». Обычно это исходный код, инструкция по запуску и файлы дизайна, если они есть.</p>
+        </details>
+        <details class="qa">
+          <summary>Можно посмотреть проект до оплаты?</summary>
+          <p>Да. У части проектов в карточке есть кнопка «Открыть демо». Остальные покажем на созвоне или пришлём видео с экрана.</p>
+        </details>
+        <details class="qa">
+          <summary>Как проходит оплата?</summary>
+          <p>После заявки мы связываемся с вами, подтверждаем состав и присылаем счёт или ссылку на оплату. При отправке заявки деньги не списываются.</p>
+        </details>
+        <details class="qa">
+          <summary>Можно доработать проект под мои задачи?</summary>
+          <p>Да. Напишите в комментарии к заявке, что нужно изменить. Сроки и стоимость назовём до оплаты.</p>
+        </details>
+        <details class="qa">
+          <summary>Проект продаётся только мне?</summary>
+          <p>Зависит от проекта. В карточке указан тип лицензии. «Эксклюзив» значит, что проект продаётся одному покупателю вместе с правами. «Копия» даёт право использовать проект у себя без перепродажи.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="contact" aria-labelledby="contact-title">
+    <div class="cta">
+      <div class="cta__text">
+        <h2 class="display" id="contact-title">Не нашли <strong>нужный проект?</strong></h2>
+        <p>Опишите задачу. Подберём готовое решение или соберём проект под заказ.</p>
+      </div>
+      <div class="cta__links" id="contact-links"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <p class="foot__brand"><span data-brand>Бюро проектов</span> · <span data-tagline>Готовые проекты с исходниками</span></p>
+    <nav class="foot__nav" aria-label="Ссылки в подвале">
+      <a href="#catalog">Каталог</a>
+      <a href="#process">Как купить</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contact">Контакты</a>
+      <span id="legal-links"></span>
+    </nav>
+    <p class="foot__copy">© <span data-year>2026</span> <span data-brand>Бюро проектов</span></p>
+  </div>
+</footer>
+
+<dialog class="dlg dlg--project" id="project-dialog" aria-labelledby="project-title">
+  <div class="dlg__box" id="project-box"></div>
+</dialog>
+
+<dialog class="dlg dlg--cart" id="cart-dialog" aria-labelledby="cart-title">
+  <div class="dlg__box" id="cart-box"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/config.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
