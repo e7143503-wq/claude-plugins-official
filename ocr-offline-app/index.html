@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ТекстСкан</title>
+  <meta name="description" content="Распознавание текста на изображениях без интернета: копирование, умное исправление неразборчивых слов, сохранение в TXT, DOCX, PDF, RTF, ODT, HTML, Markdown, JSON.">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="11" fill="var(--accent)"/>
+        <path d="M14 18v-4h4M30 14h4v4M34 30v4h-4M18 34h-4v-4" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18 20h12M24 20v10" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>ТекстСкан</h1>
+        <p class="tagline">Текст с любого изображения — без интернета</p>
+      </div>
+    </div>
+    <div class="top-badges">
+      <span class="badge badge-offline" title="Распознавание и исправление выполняются на этом устройстве. Изображения никуда не отправляются.">
+        <span class="dot"></span>Работает офлайн
+      </span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Левая колонка: изображения -->
+    <section class="panel panel-images" aria-label="Изображения">
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Выбрать изображения">
+        <svg class="dz-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="8" y="12" width="48" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="23" cy="26" r="5" fill="currentColor" opacity=".55"/>
+          <path d="M10 46l14-13 10 9 8-7 12 11" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        <p class="dz-title">Перетащите сюда фото, скриншот или скан</p>
+        <p class="dz-sub">или нажмите, чтобы выбрать файлы · <kbd>Ctrl</kbd>+<kbd>V</kbd> — вставить из буфера</p>
+        <div class="dz-actions">
+          <button type="button" class="btn btn-primary" id="pickBtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0l-4.5 4.5M12 4l4.5 4.5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            Выбрать изображения
+          </button>
+          <button type="button" class="btn" id="cameraBtn" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+            Сфотографировать
+          </button>
+        </div>
+        <p class="dz-formats">JPG · PNG · WEBP · BMP · GIF · HEIC (Safari) — можно несколько сразу</p>
+      </div>
+
+      <div id="viewer" class="viewer card" hidden>
+        <div class="viewer-bar">
+          <div class="viewer-title"><span id="viewerName">—</span><span id="viewerStatus" class="status-pill"></span></div>
+          <div class="tool-group">
+            <button class="icon-btn" id="rotLeftBtn" title="Повернуть влево" aria-label="Повернуть влево"><svg viewBox="0 0 24 24"><path d="M4 9a8 8 0 111 9"/><path d="M4 4v5h5"/></svg></button>
+            <button class="icon-btn" id="rotRightBtn" title="Повернуть вправо" aria-label="Повернуть вправо"><svg viewBox="0 0 24 24"><path d="M20 9a8 8 0 10-1 9"/><path d="M20 4v5h-5"/></svg></button>
+            <button class="icon-btn" id="boxesBtn" title="Показать рамки исправленных слов" aria-label="Рамки слов" aria-pressed="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="8" height="5" rx="1"/><rect x="13" y="6" width="8" height="5" rx="1"/><rect x="3" y="14" width="12" height="5" rx="1"/></svg></button>
+            <button class="icon-btn" id="rerunBtn" title="Распознать заново" aria-label="Распознать заново"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-2.34-5.66"/><path d="M20 4v4h-4"/></svg></button>
+            <button class="icon-btn danger" id="removeBtn" title="Убрать изображение" aria-label="Убрать изображение"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg></button>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-inner" id="stageInner">
+            <div class="boxes" id="boxes"></div>
+          </div>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+
+      <details class="settings card" id="settings">
+        <summary>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+          Настройки распознавания
+        </summary>
+        <div class="settings-grid">
+          <label class="field">
+            <span>Язык текста</span>
+            <select id="setLang">
+              <option value="rus+eng">Русский + английский</option>
+              <option value="rus">Только русский</option>
+              <option value="eng">Только английский</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Тип изображения</span>
+            <select id="setPsm">
+              <option value="3">Авто: документ, скриншот, страница</option>
+              <option value="6">Один блок текста</option>
+              <option value="11">Фото: вывески, разбросанный текст</option>
+              <option value="7">Одна строка</option>
+            </select>
+          </label>
+          <label class="check"><input type="checkbox" id="setImprove" checked><span><b>Улучшать изображение</b><small>увеличение, контраст, светлый текст на тёмном фоне</small></span></label>
+          <label class="check"><input type="checkbox" id="setAutocorrect" checked><span><b>Дописывать неразборчивые слова</b><small>подбор по словарю с учётом типичных ошибок</small></span></label>
+          <label class="check"><input type="checkbox" id="setHyphens" checked><span><b>Склеивать переносы</b><small>«распозна-&nbsp;/&nbsp;вание» → «распознавание»</small></span></label>
+          <label class="check"><input type="checkbox" id="setNoise" checked><span><b>Убирать мусорные символы</b><small>точки, черточки и пятна, принятые за буквы</small></span></label>
+          <label class="check"><input type="checkbox" id="setMerge"><span><b>Объединять строки в абзацы</b><small>вместо переносов строк как на изображении</small></span></label>
+        </div>
+        <p class="settings-note" id="settingsNote" hidden>Настройки изменены. <button class="link-btn" id="applySettingsBtn">Распознать заново</button></p>
+      </details>
+    </section>
+
+    <!-- Правая колонка: результат -->
+    <section class="panel panel-result card" aria-label="Распознанный текст">
+      <div class="result-head">
+        <div>
+          <h2>Распознанный текст</h2>
+          <p class="result-meta" id="resultMeta">Здесь появится текст с изображения</p>
+        </div>
+        <div class="result-actions">
+          <button class="btn" id="copyBtn" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h8"/></svg>
+            <span>Копировать</span>
+          </button>
+          <div class="menu-wrap">
+            <button class="btn btn-primary" id="downloadBtn" aria-haspopup="true" aria-expanded="false" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1"/></svg>
+              <span>Скачать</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+            </button>
+            <div class="menu" id="downloadMenu" role="menu" hidden>
+              <label class="menu-field">
+                <span>Имя файла</span>
+                <input type="text" id="fileName" value="текст" spellcheck="false">
+              </label>
+              <div class="formats" id="formats"></div>
+              <label class="check small"><input type="checkbox" id="markInFile" checked><span>Выделять исправленные слова в файле <small>DOCX, PDF, RTF, ODT, HTML — с пометкой исходного варианта</small></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress" id="progress" hidden>
+        <div class="progress-top"><span id="progressLabel">Подготовка…</span><span id="progressPct">0%</span></div>
+        <div class="bar"><i id="progressBar"></i></div>
+      </div>
+
+      <div class="chips" id="chips" hidden>
+        <button class="chip chip-fixed" data-kind="fixed" title="Перейти к следующему"><i></i>Исправлено <b>0</b></button>
+        <button class="chip chip-guess" data-kind="guess" title="Перейти к следующему"><i></i>Предположение <b>0</b></button>
+        <button class="chip chip-unclear" data-kind="unclear" title="Перейти к следующему"><i></i>Не разобрано <b>0</b></button>
+        <button class="chip chip-removed" data-kind="removed" title="Перейти к следующему"><i></i>Убран мусор <b>0</b></button>
+        <span class="chips-spacer"></span>
+        <label class="switch" title="Подсветка исправленных слов"><input type="checkbox" id="hlToggle" checked><span class="track"></span>Подсветка</label>
+        <button class="link-btn" id="acceptAllBtn">Принять все</button>
+      </div>
+
+      <div class="editor-wrap">
+        <div id="editor" class="editor" contenteditable="true" spellcheck="false" aria-label="Распознанный текст, можно редактировать"></div>
+        <div class="empty" id="emptyState">
+          <ol class="steps">
+            <li><b>Добавьте изображение</b><span>фото документа, скриншот, скан, фото вывески или страницы книги</span></li>
+            <li><b>Получите текст</b><span>распознавание идёт прямо на устройстве — интернет не нужен</span></li>
+            <li><b>Проверьте подсказки</b><span>неразборчивые слова дописываются автоматически и подсвечиваются — нажмите на слово, чтобы увидеть, как оно выглядело на изображении</span></li>
+            <li><b>Скопируйте или скачайте</b><span>TXT, DOCX, PDF, RTF, ODT, HTML, Markdown, JSON</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="hint" id="editorHint" hidden>Текст можно править прямо здесь. Подсвеченные слова были дописаны или исправлены — нажмите на любое, чтобы увидеть подробности.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Изображения и текст не покидают ваше устройство · Движок Tesseract (Apache 2.0) · Словари wordfreq (CC BY-SA 4.0)
+  </footer>
+
+  <div class="popover" id="popover" role="dialog" aria-modal="false" hidden></div>
+  <div class="drop-overlay" id="dropOverlay" hidden><div>Отпустите, чтобы распознать текст</div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <input type="file" id="fileInput" accept="image/*,.heic,.heif" multiple hidden>
+  <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+
+  <script src="assets/corrector.js"></script>
+  <script src="assets/ocr.js"></script>
+  <script src="assets/export.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
