@@ -173,6 +173,13 @@
 
   <div class="popover" id="popover" role="dialog" aria-modal="false" hidden></div>
   <div class="drop-overlay" id="dropOverlay" hidden><div>Отпустите, чтобы распознать текст</div></div>
+  <div class="modal" id="confirmBox" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
+    <div class="modal-card">
+      <h3 id="confirmTitle">Продолжить?</h3>
+      <p></p>
+      <div class="modal-actions"><button class="btn" data-cancel>Отмена</button><button class="btn btn-primary" data-ok>Продолжить</button></div>
+    </div>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <input type="file" id="fileInput" accept="image/*,.heic,.heif" multiple hidden>

@@ -83,6 +83,29 @@
     return state.correctorPromise;
   }
 
+  // Подтверждение внутри страницы (системные диалоги доступны не везде)
+  function askConfirm(text, okLabel) {
+    return new Promise((resolve) => {
+      const box = $('confirmBox');
+      box.querySelector('p').textContent = text;
+      const ok = box.querySelector('[data-ok]'), cancel = box.querySelector('[data-cancel]');
+      ok.textContent = okLabel || 'Продолжить';
+      const done = (v) => { box.hidden = true; ok.onclick = cancel.onclick = null; resolve(v); };
+      ok.onclick = () => done(true);
+      cancel.onclick = () => done(false);
+      box.hidden = false;
+      ok.focus();
+    });
+  }
+
+  // Встроенная среда claude.ai: файлы сохраняются через её окно подтверждения
+  const inHost = !!(window.claude && typeof window.claude.use === 'function');
+  const HOST_EXTS = ['docx', 'pdf', 'txt', 'html', 'md', 'json'];
+  let hostDownloads = null;
+  const hostDownloadsReady = inHost
+    ? window.claude.use('downloads').then((d) => { hostDownloads = d; return d; }).catch(() => null)
+    : Promise.resolve(null);
+
   // ---------- Настройки ----------
   function applySettingsToUI() {
     el.setLang.value = settings.lang;
@@ -108,7 +131,7 @@
   // Эти — только пересобирают текст из уже распознанных данных
   for (const [node, key] of [[el.setAutocorrect, 'autocorrect'], [el.setHyphens, 'hyphens'], [el.setNoise, 'noise'], [el.setMerge, 'merge']]) {
     node.addEventListener('change', async () => {
-      if (state.dirty && !confirm('Текст будет собран заново, ваши ручные правки пропадут. Продолжить?')) {
+      if (state.dirty && !(await askConfirm('Текст будет собран заново, ваши ручные правки пропадут.', 'Собрать заново'))) {
         node.checked = settings[key];
         return;
       }
@@ -292,8 +315,8 @@
     }
   }
 
-  function rerunAll() {
-    if (state.dirty && !confirm('Текст будет распознан заново, ваши ручные правки пропадут. Продолжить?')) return;
+  async function rerunAll() {
+    if (state.dirty && !(await askConfirm('Текст будет распознан заново, ваши ручные правки пропадут.', 'Распознать заново'))) return;
     for (const p of state.pages) p.status = 'queued';
     el.settingsNote.hidden = true;
     renderThumbs();
@@ -670,7 +693,9 @@
 
   // ---------- Скачивание ----------
   function buildFormats() {
+    el.formats.innerHTML = '';
     for (const [key, f] of Object.entries(window.TSExport.FORMATS)) {
+      if (inHost && !HOST_EXTS.includes(f.ext)) continue; // RTF и ODT — только в офлайн-версии
       const b = document.createElement('button');
       b.className = 'fmt';
       b.dataset.f = key;
@@ -685,15 +710,34 @@
     const f = window.TSExport.FORMATS[format];
     const doc = TextModel.doc();
     if (!doc.lines.length) return;
+    const name = (el.fileName.value || 'текст').trim().replace(/[\\/:*?"<>|]+/g, '_').slice(0, 120) || 'текст';
+    const filename = `${name}.${f.ext}`;
+    let blob;
     try {
-      const blob = await window.TSExport.make(format, doc, el.markInFile.checked && !!f.marks);
-      const name = (el.fileName.value || 'текст').trim().replace(/[\\/:*?"<>|]+/g, '_').slice(0, 120) || 'текст';
-      window.TSExport.download(blob, `${name}.${f.ext}`);
-      toast(`Файл ${name}.${f.ext} сохранён`);
-      toggleMenu(false);
+      blob = await window.TSExport.make(format, doc, el.markInFile.checked && !!f.marks);
     } catch (e) {
       console.error(e);
       toast('Не удалось создать файл: ' + (e.message || e), true);
+      return;
+    }
+    if (!inHost) {
+      window.TSExport.download(blob, filename);
+      toast(`Файл ${filename} сохранён`);
+      toggleMenu(false);
+      return;
+    }
+    const d = hostDownloads || (await hostDownloadsReady);
+    if (!d) { toast('Скачивание здесь недоступно. Скопируйте текст кнопкой «Копировать» или используйте офлайн-версию.', true); return; }
+    toggleMenu(false);
+    try {
+      await d.save({ filename, data: blob });
+      toast(`Файл ${filename} сохранён`);
+    } catch (e) {
+      const code = e && e.code;
+      if (code === 'declined') return;
+      if (code === 'rate_limited') toast('Окно сохранения уже открыто — подтвердите или закройте его', true);
+      else if (code === 'rejected_extension' || code === 'extension_not_enabled') toast(`Формат .${f.ext} здесь недоступен — выберите другой`, true);
+      else toast('Не удалось сохранить файл: ' + ((e && e.message) || code || e), true);
     }
   }
   function toggleMenu(open) {
@@ -896,7 +940,7 @@
   const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 400));
   idle(() => { window.TSOcr.warmUp(langsFromSetting()); getCorrector().catch(() => {}); });
 
-  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  if (!inHost && 'serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
 
